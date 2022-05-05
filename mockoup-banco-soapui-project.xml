@@ -67,10 +67,10 @@ if( requestBody.contains("some data") )&#13;
   "id_session": "saddasdasdasd78975",
   "bynary_image": "https://images.unsplash.com/photo-1651595364663-228d4a3df8b6?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=387&amp;q=80",
   "frase": "Libertad"
-}</con:responseContent></con:response><con:response name="sendUser_response_fallo.json" id="ae20b82a-3173-464c-9b6e-f000572fc016" httpResponseStatus="200"><con:settings/><con:responseContent>{
+}</con:responseContent></con:response><con:response name="sendUser_response_fallo.json" id="ae20b82a-3173-464c-9b6e-f000572fc016" httpResponseStatus="404"><con:settings/><con:responseContent>{
   "error": "usuario inexistente",
   "mensaje": "el usuario no ha sido creado anteriormente"
-}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="initCaptcha" method="GET" resourcePath="/initCaptcha" id="3141517a-5c24-469b-bb1c-2412d1f5329b"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*&#13;
+}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="initCaptcha" method="GET" resourcePath="/initCaptcha" id="3141517a-5c24-469b-bb1c-2412d1f5329b"><con:settings/><con:defaultResponse>initCaptcha_response.json</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*&#13;
 // Script dispatcher is used to select a response based on the incoming request.&#13;
 // Here are few examples showing how to match based on path, query param, header and body&#13;
 &#13;
@@ -128,7 +128,18 @@ if( requestBody.contains("some data") )&#13;
     "https://images.unsplash.com/photo-1588336142586-36aff13141fc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
     "https://images.unsplash.com/photo-1612024782955-49fae79e42bb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
   ]
-}]]></con:responseContent></con:response></con:restMockAction><con:restMockAction name="checkCaptcha" method="POST" resourcePath="/checkCaptcha" id="4d2ebb12-1f28-4e08-b55b-cceb91e5b061"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*&#13;
+}]]></con:responseContent></con:response></con:restMockAction><con:restMockAction name="checkCaptcha" method="POST" resourcePath="/checkCaptcha" id="4d2ebb12-1f28-4e08-b55b-cceb91e5b061"><con:settings/><con:defaultResponse>checkCaptcha_response_false.json</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>// Match based on body
+def requestBody = mockRequest.getRequestContent()
+log.info "Request body: " + requestBody
+
+if( requestBody.contains("loros"))
+{
+    // return the name of the response you want to dispatch
+    return "checkCaptcha_response_true.json"
+}else {
+	return "checkCaptcha_response_false.json"
+}
+/*&#13;
 // Script dispatcher is used to select a response based on the incoming request.&#13;
 // Here are few examples showing how to match based on path, query param, header and body&#13;
 &#13;
@@ -180,11 +191,11 @@ if( requestBody.contains("some data") )&#13;
     return "Response N"&#13;
 }&#13;
 */&#13;
-</con:dispatchPath><con:response name="checkCaptcha_response_true.json" id="1b214dd9-f885-4a68-b87f-4bcc6f2f775c" httpResponseStatus="200"><con:settings/><con:responseContent>{
+</con:dispatchPath><con:response name="checkCaptcha_response_true.json" id="1b214dd9-f885-4a68-b87f-4bcc6f2f775c" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
   "boolean" : "true",  
-}</con:responseContent></con:response><con:response name="checkCaptcha_response_false.json" id="1a04b35a-bb6a-456a-bc52-b43be07d67f1" httpResponseStatus="200"><con:settings/><con:responseContent>{
+}</con:responseContent></con:response><con:response name="checkCaptcha_response_false.json" id="1a04b35a-bb6a-456a-bc52-b43be07d67f1" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
   "boolean": "false"
-}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="sendPassword" method="POST" resourcePath="/sendPassword" id="c7b7b21f-ede7-4322-8b04-93d3eac36b1c"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*&#13;
+}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="sendPassword" method="POST" resourcePath="/sendPassword" id="c7b7b21f-ede7-4322-8b04-93d3eac36b1c"><con:settings/><con:defaultResponse>sendPassword_response_true.json</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*&#13;
 // Script dispatcher is used to select a response based on the incoming request.&#13;
 // Here are few examples showing how to match based on path, query param, header and body&#13;
 &#13;
@@ -236,8 +247,8 @@ if( requestBody.contains("some data") )&#13;
     return "Response N"&#13;
 }&#13;
 */&#13;
-</con:dispatchPath><con:response name="sendPassword_response_true.json" id="fb3c1695-6d78-49a1-885b-5c4030781856" httpResponseStatus="200"><con:settings/><con:responseContent>{
-  "boolean": "true"
-}</con:responseContent></con:response><con:response name="sendPassword_response_false.json" id="5abf2fa4-3c6d-4695-b99b-e2e3a6f697f2" httpResponseStatus="200"><con:settings/><con:responseContent>{
-  "boolean": "false"
+</con:dispatchPath><con:response name="sendUser_response.json" id="1ff37093-e50d-4eb6-8acc-8a514e93f2c3" httpResponseStatus="200"><con:settings/><con:responseContent>{
+  "id_session": "saddasdasdasd78975",
+  "bynary_image": "https://images.unsplash.com/photo-1651595364663-228d4a3df8b6?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=387&amp;q=80",
+  "frase": "Libertad"
 }</con:responseContent></con:response></con:restMockAction></con:restMockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
